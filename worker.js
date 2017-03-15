@@ -1,5 +1,6 @@
 
 var utils = require('./lib/utils')
+var request = require('../lib/request');
 
 module.exports = {
   // run for each job
@@ -9,11 +10,13 @@ module.exports = {
       listen: function (io, context) {
         function onTested(id, data) {
           io.removeListener('job.status.tested', onTested)
-          hooks.forEach(function (hook) {
+          Object.keys(hooks).forEach(function (k) {
+            var hook = hooks[k]
             context.comment('Firing webhook ' + hook.title)
             try {
-              var payload = hook.prepare(data, job)
-              io.emit('plugin.webhooks.fire', hook.url, hook.secret, payload)
+              var payload = utils.makeDingDingRobotHook(data, job)
+              request(hook.url, payload)
+              // io.emit('plugin.webhooks.fire', hook.url, hook.secret, payload)
             } catch (e) {
               context.comment('Failed to prepare webhook payload: ' + e.message);
               return
@@ -23,5 +26,5 @@ module.exports = {
         io.on('job.status.tested', onTested)
       }
     })
-  },
+  }
 }
