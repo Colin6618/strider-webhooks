@@ -1,6 +1,5 @@
-
 var utils = require('./lib/utils')
-var request = require('../lib/request');
+var request = require('./lib/request');
 
 module.exports = {
   // run for each job
@@ -23,6 +22,7 @@ module.exports = {
             }
           })
         }
+
         io.on('job.status.tested', onTested)
       }
     })
