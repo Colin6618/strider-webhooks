@@ -2,7 +2,7 @@ var request = require('../lib/request');
 var utils = require('../lib/utils');
 
 
-var data = {time: '2017-03-15T13:26:26.021Z', exitCode: 0}
+var data = {time: '2017-03-15T13:26:26.021Z', exitCode: undefined}
 
 var job = {
   __v: 0,
@@ -75,4 +75,3 @@ var job = {
 }
 var payload = utils.makeDingDingRobotHook(data, job)
 request('https://oapi.dingtalk.com/robot/send?access_token=f4f044e57d9b313db7fb5f18819f00890dc9a488220a947ed40f8f8888def652', payload)
-
