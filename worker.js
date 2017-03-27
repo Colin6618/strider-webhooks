@@ -1,6 +1,6 @@
 var utils = require('./lib/utils')
 var request = require('./lib/request');
-
+var ws = require('./lib/ws');
 module.exports = {
   // run for each job
   init: function (config, job, context, cb) {
@@ -21,9 +21,50 @@ module.exports = {
               return
             }
           })
+          ws.emit('job.status.tested', {
+            data: data,
+            job: job
+          })
         }
 
-        io.on('job.status.tested', onTested)
+        function onErrored(id, data) {
+          ws.emit('job.status.phase.errored', {
+            id: id,
+            data: data,
+            job: job
+          })
+        }
+
+        function onDeployed(id, data) {
+          ws.emit('job.status.deployed', {
+            id: id,
+            data: data,
+            job: job
+          })
+        }
+
+        function onQueued(id, data) {
+          ws.emit('job.queued', {
+            id: id,
+            data: data,
+            job: job
+          })
+        }
+
+        function onDone(data) {
+          ws.emit('job.done', {
+            id: id,
+            data: data,
+            job: job
+          })
+        }
+
+        io.on('job.status.tested', onTested);
+        io.once('job.status.phase.errored', onErrored);
+        io.once('job.status.deployed', onDeployed);
+        io.once('job.queued', onQueued);
+        io.once('job.done', onDone);
+
       }
     })
   }

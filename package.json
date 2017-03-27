@@ -35,8 +35,10 @@
   },
   "dependencies": {
     "bson": "~0.2.2",
-    "superagent": "~0.15.4",
     "crypto": "0.0.3",
-    "querystring": "~0.2.0"
+    "querystring": "~0.2.0",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
+    "superagent": "~0.15.4"
   }
 }
