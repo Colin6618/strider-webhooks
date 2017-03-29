@@ -27,6 +27,14 @@ module.exports = {
           })
         }
 
+
+        function onQueued(id, data) {
+          ws.emit('job.queued', {
+            id: id,
+            data: data,
+            job: job
+          })
+        }
         function onErrored(id, data) {
           ws.emit('job.status.phase.errored', {
             id: id,
@@ -43,8 +51,15 @@ module.exports = {
           })
         }
 
-        function onQueued(id, data) {
-          ws.emit('job.queued', {
+        function onCancelled(data) {
+          ws.emit('job.status.cancelled', {
+            id: id,
+            data: data,
+            job: job
+          })
+        }
+        function onPhaseDone(data) {
+          ws.emit('job.status.phase.done', {
             id: id,
             data: data,
             job: job
@@ -58,13 +73,13 @@ module.exports = {
             job: job
           })
         }
-
+        io.once('job.queued', onQueued);
         io.on('job.status.tested', onTested);
         io.once('job.status.phase.errored', onErrored);
         io.once('job.status.deployed', onDeployed);
-        io.once('job.queued', onQueued);
+        io.once('job.status.cancelled', onCancelled);
+        io.once('job.status.phase.done', onPhaseDone);
         io.once('job.done', onDone);
-
       }
     })
   }
