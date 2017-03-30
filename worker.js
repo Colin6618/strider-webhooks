@@ -22,6 +22,7 @@ module.exports = {
             }
           })
           ws.emit('job.status.tested', {
+            id: id,
             data: data,
             job: job
           })
@@ -51,14 +52,14 @@ module.exports = {
           })
         }
 
-        function onCancelled(data) {
+        function onCancelled(id, data) {
           ws.emit('job.status.cancelled', {
             id: id,
             data: data,
             job: job
           })
         }
-        function onPhaseDone(data) {
+        function onPhaseDone(id,data) {
           ws.emit('job.status.phase.done', {
             id: id,
             data: data,
@@ -66,7 +67,7 @@ module.exports = {
           })
         }
 
-        function onDone(data) {
+        function onDone(id, data) {
           ws.emit('job.done', {
             id: id,
             data: data,
