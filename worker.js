@@ -8,7 +8,7 @@ module.exports = {
     cb(null, {
       listen: function (io, context) {
         function onTested(id, data) {
-          io.removeListener('job.status.tested', onTested)
+          // io.removeListener('job.status.tested', onTested)
           Object.keys(hooks).forEach(function (k) {
             var hook = hooks[k]
             context.comment('Firing webhook ' + hook.title)
@@ -59,6 +59,7 @@ module.exports = {
             job: job
           })
         }
+
         function onPhaseDone(id,data) {
           ws.emit('job.status.phase.done', {
             id: id,
@@ -75,10 +76,13 @@ module.exports = {
           })
         }
         io.once('job.queued', onQueued);
-        io.on('job.status.tested', onTested);
+        //2
+        io.once('job.status.tested', onTested);
         io.once('job.status.phase.errored', onErrored);
+        //3
         io.once('job.status.deployed', onDeployed);
         io.once('job.status.cancelled', onCancelled);
+        //1
         io.once('job.status.phase.done', onPhaseDone);
         io.once('job.done', onDone);
       }
