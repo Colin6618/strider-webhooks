@@ -1,7 +1,6 @@
 var request = require('../lib/request');
 var utils = require('../lib/utils');
 
-
 var data = {time: '2017-03-15T13:26:26.021Z', exitCode: undefined}
 
 var job = {
@@ -48,7 +47,7 @@ var job = {
     type: 'manual',
     timestamp: '2017-03-15T06:23:26.942Z',
     source: {page: 'config', type: 'UI'},
-    message: 'Manually Retesting',
+    message: 'hanyuzhi TEST_AND_DEPLOY 18602500262',
     author: {
       id: '5863361935f7cd3b165b7954',
       email: 'hanyuzhi@meizu.com',
