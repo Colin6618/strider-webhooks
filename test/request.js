@@ -47,7 +47,7 @@ var job = {
     type: 'manual',
     timestamp: '2017-03-15T06:23:26.942Z',
     source: {page: 'config', type: 'UI'},
-    message: 'hanyuzhi TEST_AND_DEPLOY 18602500262',
+    // message: 'hanyuzhi TEST_AND_DEPLOY 18812345678',
     author: {
       id: '5863361935f7cd3b165b7954',
       email: 'hanyuzhi@meizu.com',
